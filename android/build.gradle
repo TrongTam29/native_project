@@ -1,0 +1,24 @@
+allprojects {
+    ext.kotlin_version = '1.7.10' // Hoặc phiên bản mới hơn
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+rootProject.buildDir = "../build"
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+subprojects {
+    project.evaluationDependsOn(":app")
+}
+
+dependencies {
+    classpath "com.android.tools.build:gradle:7.0.4"
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+}
+
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}
